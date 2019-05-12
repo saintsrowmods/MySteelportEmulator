@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8177CEC7-2CF2-4D6C-8805-7BEFCB5DC148}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SaintsRowAPI</RootNamespace>
+    <AssemblyName>SaintsRowAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Certificates.cs" />
+    <Compile Include="ConnectionListener.cs" />
+    <Compile Include="Hydra\DataTypes\HydraArray.cs" />
+    <Compile Include="Hydra\DataTypes\HydraBinary.cs" />
+    <Compile Include="Hydra\DataTypes\HydraBool.cs" />
+    <Compile Include="Hydra\DataTypes\HydraDateTime.cs" />
+    <Compile Include="Hydra\DataTypes\HydraHashMap.cs" />
+    <Compile Include="Hydra\DataTypes\HydraInt32.cs" />
+    <Compile Include="Hydra\DataTypes\HydraFloat64.cs" />
+    <Compile Include="Hydra\DataTypes\HydraInt64.cs" />
+    <Compile Include="Hydra\DataTypes\HydraItemDeserializer.cs" />
+    <Compile Include="Hydra\DataTypes\HydraNone.cs" />
+    <Compile Include="Hydra\DataTypes\HydraUtf8StringAsBinary.cs" />
+    <Compile Include="Hydra\DataTypes\HydraUtf8String.cs" />
+    <Compile Include="Hydra\HydraConnection.cs" />
+    <Compile Include="Hydra\DataTypes\HydraDataType.cs" />
+    <Compile Include="Hydra\HydraRequest.cs" />
+    <Compile Include="Hydra\DataTypes\IHydraItem.cs" />
+    <Compile Include="Hydra\HydraResponse.cs" />
+    <Compile Include="Hydra\Modules\FeedModule.cs" />
+    <Compile Include="Hydra\Modules\IModule.cs" />
+    <Compile Include="Hydra\Modules\OnesiteProxyModule.cs" />
+    <Compile Include="Hydra\Modules\ProfileModule.cs" />
+    <Compile Include="Hydra\Modules\UgcModule.cs" />
+    <Compile Include="Models\Channel.cs" />
+    <Compile Include="Models\ChannelMessage.cs" />
+    <Compile Include="Models\ChannelOwner.cs" />
+    <Compile Include="Models\Screenshot.cs" />
+    <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\ProfileStat.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamHelpers.cs" />
+    <Compile Include="StringBuilderHelpers.cs" />
+    <Compile Include="SwapHelpers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AaltoTLS\AaltoTLS\AaltoTLS.csproj">
+      <Project>{c033352f-fd43-4eff-8ebf-997540c2ea37}</Project>
+      <Name>AaltoTLS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
