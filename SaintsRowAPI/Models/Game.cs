@@ -16,12 +16,29 @@ namespace SaintsRowAPI.Models
         {
             switch (apiKey)
             {
+                case "3408818955742454778":
+                    return new Game()
+                    {
+                        ID = 1,
+                        Title = "Saints Row: The Third - Initiation Station",
+                        ShortTitle = "SRTTIS",
+                    };
+
                 case "7713307274052196224":
                     return new Game()
                     {
-                        ID = 3,
+                        ID = 2,
                         Title = "Saints Row: The Third",
                         ShortTitle = "SRTT",
+                    };
+
+
+                case "4357952135563890661":
+                    return new Game()
+                    {
+                        ID = 3,
+                        Title = "Saints Row IV Inauguration Station",
+                        ShortTitle = "SRIVIS",
                     };
 
                 case "4099492307594627576":
