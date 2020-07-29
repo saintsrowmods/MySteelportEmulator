@@ -9,13 +9,15 @@ using System.Threading;
 using SaintsRowAPI.Hydra;
 
 using AaltoTLS;
+using System.Net.NetworkInformation;
 
 namespace SaintsRowAPI
 {
     public class ConnectionListener
     {
         private Socket ListenSocket;
-        public bool ValidIP { get; private set; }
+        private bool ValidIP;
+        public bool IsConnected { get; private set; }
 
         public ConnectionListener()
         {
@@ -26,18 +28,32 @@ namespace SaintsRowAPI
             IPAddress[] ip_local_all = host_local.AddressList;
 
             ValidIP = ip_local_all.Any(local_ip => local_ip.Equals(ip_remote));
+            
+            //https://stackoverflow.com/a/50577106/3930332
+            IPEndPoint[] ipEndPoints = IPGlobalProperties.GetIPGlobalProperties().GetActiveTcpListeners();
+            bool port_443_available = !ipEndPoints.Any(active_port => active_port.Port == 443);
 
-            if (ValidIP)
+            if (ValidIP && port_443_available)
             {
                 ListenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                ListenSocket.Bind(new IPEndPoint(ip_remote, 443));
 
-                Console.WriteLine("IP: " + ip_remote.ToString());
+                try
+                {
+                    ListenSocket.Bind(new IPEndPoint(ip_remote, 443));
+                    Console.WriteLine("Connected IP: " + ip_remote.ToString());
+                }
+                catch (SocketException sex)
+                {
+                    Console.WriteLine("Can't open port: {0}", sex.Message);
+                }
+                
             }
-            else
-            {
-                Console.WriteLine("[STOP] sr3.hydra.agoragames.com ({0}) doesn't point to this machine.", ip_remote);
-            }
+
+            if (!ValidIP)
+                Console.WriteLine("[ERROR] sr3.hydra.agoragames.com ({0}) doesn't point to this machine.", ip_remote);
+            
+            if (!port_443_available)
+                Console.WriteLine("[ERROR] Port 443 is in use.");
         }
         
         private void AcceptCallback(IAsyncResult AR)
@@ -68,7 +84,7 @@ namespace SaintsRowAPI
 
         public void Listen()
         {
-            if (!ValidIP)
+            if (!IsConnected)
                 return;
 
             ListenSocket.Listen(10);

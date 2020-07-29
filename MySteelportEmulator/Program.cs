@@ -21,12 +21,15 @@ namespace SaintsRowAPI.ConsoleHost
             ConnectionListener Listener = new ConnectionListener();
             Listener.Listen();
 
-            while (Listener.ValidIP)
+            while (Listener.IsConnected)
             {
                 System.Threading.Thread.Sleep(1000);
             }
 
-            Console.ReadKey();
+            Console.WriteLine("Press any key to continue...");
+            Console.WriteLine();
+
+            Console.ReadKey(true);
         }
     }
 }
