@@ -13,6 +13,4 @@ May 2019.
 
 ## Credits
 
-Uses a modified version of AaltoTLS.
-
 AaltoTLS is Copyright (C) 2010-2011 Aalto University.

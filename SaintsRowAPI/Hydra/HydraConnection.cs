@@ -95,6 +95,9 @@ namespace SaintsRowAPI.Hydra
                 IPEndPoint ipep = (IPEndPoint)Socket.RemoteEndPoint;
                 IPAddress = ipep.Address;
 
+                Console.Write("New connection: ", IPAddress);
+                Console.WriteLine();
+
                 networkStream = new NetworkStream(Socket);
 
                 try
@@ -102,8 +105,9 @@ namespace SaintsRowAPI.Hydra
                     Session = new SecureSession(networkStream, Certificates.SecurityParameters);
                     Session.PerformServerHandshake(Certificates.Certificate);
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     loop = false;
                 }
 
@@ -115,12 +119,16 @@ namespace SaintsRowAPI.Hydra
                     {
                         request = new HydraRequest(this);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Console.WriteLine("[Hydra Request EX] " + ex.Message);
                         break;
                     }
 
                     Modules.IModule module = null;
+
+                    Console.Write("Module Request: {0}", request.Module);
+                    Console.WriteLine();
 
                     switch (request.Module)
                     {
@@ -162,6 +170,7 @@ namespace SaintsRowAPI.Hydra
             }
             catch (Exception ex)
             {
+                Console.WriteLine("[Handle EX] " + ex.Message);
             }
 
             try
@@ -169,12 +178,17 @@ namespace SaintsRowAPI.Hydra
                 Session.Close();
                 networkStream.Flush();
                 networkStream.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[Sesion close EX] " + ex.Message);
+            }
+            finally
+            {
                 Socket.Disconnect(false);
                 Socket.Dispose();
             }
-            catch
-            {
-            }
+
         }
     }
 }

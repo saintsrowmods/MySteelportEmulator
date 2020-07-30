@@ -12,6 +12,7 @@ namespace SaintsRowAPI.ConsoleHost
     {
         static void Main(string[] args)
         {
+            Console.Title = "My Steelport Emulator";
             Console.WriteLine("My Steelport Emulator {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(2));
             Console.WriteLine("https://www.saintsrowmods.com/forum/threads/my-steelport-emulator.17361/");
             Console.WriteLine();
@@ -20,10 +21,15 @@ namespace SaintsRowAPI.ConsoleHost
             ConnectionListener Listener = new ConnectionListener();
             Listener.Listen();
 
-            while (true)
+            while (Listener.IsConnected)
             {
                 System.Threading.Thread.Sleep(1000);
             }
+
+            Console.WriteLine("Press any key to continue...");
+            Console.WriteLine();
+
+            Console.ReadKey(true);
         }
     }
 }
