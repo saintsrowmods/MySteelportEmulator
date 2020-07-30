@@ -21,7 +21,6 @@ jobs:
       Solution_Name: SaintsRowAPI.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
       
     steps:
-    - submodules: recursive
     
     - name: Checkout
       uses: actions/checkout@v2
